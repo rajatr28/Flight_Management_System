@@ -24,6 +24,7 @@ import javax.persistence.ManyToOne;
 
 public class Passenger {
 
+//@NotNull(message="prn number is mandatory")
 @Id
 @Column(name="prnNumber")
 @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="prnNumber")
