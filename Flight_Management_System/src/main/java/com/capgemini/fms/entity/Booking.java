@@ -2,22 +2,20 @@ package com.capgemini.fms.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name ="booking")
@@ -25,10 +23,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @DynamicInsert(true)
 
 public class Booking {
+//@NotNull(message="Booking Id Is Mandatory")
 @Id
 @Column(name="booking_id")
 @GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="booking_id")
-//@SequenceGenerator(sequenceName="booking_id", initialValue=1234,allocationSize=1, name="booking_id")
+
 private long bookingId;
 
 @NotNull(message="Ticket Cost Is Mandatory")
@@ -40,13 +39,13 @@ private long ticketCost;
 private int noOfPassengers;
 
 @ManyToOne
-   @JoinColumn(name="User_id", nullable=false)
+   @JoinColumn(name="user_id", nullable=false)
    private User1 user1;
 @OneToMany(mappedBy="booking")
    private List<Passenger> passengerList;
 
 @ManyToOne
-   @JoinColumn(name="flightNumber", nullable=false)
+   @JoinColumn(name="flight_number", nullable=false)
    private Flight flight;
    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
    private LocalDateTime bookingDate;
@@ -117,4 +116,3 @@ return "Booking [bookingId=" + bookingId + ", ticketCost=" + ticketCost + ", noO
 
 
 }
-
