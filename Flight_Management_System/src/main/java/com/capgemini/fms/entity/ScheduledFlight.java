@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
-@Table(name ="schedule_flights")
+@Table(name ="scheduledflight")
 @DynamicUpdate(true)
 @DynamicInsert(true)
 
@@ -45,8 +45,9 @@ return schedule;
 public void setSchedule(Schedule schedule) {
 this.schedule = schedule;
 }
-public ScheduledFlight(Flight flight, int availableSeats,Schedule schedule) {
+public ScheduledFlight(int availableSeats,Flight flight,Schedule schedule) {
 super();
+
 this.flight = flight;
 this.availableSeats = availableSeats;
 this.schedule = schedule;

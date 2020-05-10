@@ -8,18 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 @Table(name="airport")
 @DynamicUpdate(true)
 @DynamicInsert(true)
 public class Airport {
-//@NotNull(message="Airport Code Is Mandatory")	
+
 @Id
 @Column(name="airport_code")
 @GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="airport_code")

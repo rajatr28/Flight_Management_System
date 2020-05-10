@@ -22,16 +22,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Schedule {
 	@Id
 	private int schedule_id;
+	
 	@ManyToOne
     @JoinColumn(name="airport_code",nullable=false)
     private Airport sourceAirport;
+	
 	@ManyToOne
     @JoinColumn(name="airport_name",nullable=false)
     private Airport destinationAirport;
+	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	   private LocalDateTime arrivalTime;
+	
 	 @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	   private LocalDateTime departureTime;
+	 
 	public int getSchedule_id() {
 		return schedule_id;
 	}
