@@ -1,4 +1,5 @@
 package com.capgemini.fms.entity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -48,8 +49,8 @@ this.schedule = schedule;
 public ScheduledFlight(int availableSeats,Flight flight,Schedule schedule) {
 super();
 
-this.flight = flight;
 this.availableSeats = availableSeats;
+this.flight = flight;
 this.schedule = schedule;
 
 }
@@ -58,7 +59,7 @@ super();
 }
 @Override
 public String toString() {
-return "ScheduledFlight [flight=" + flight + ", availableSeats=" + availableSeats + ", schedule=" + schedule
+return "ScheduledFlight [availableSeats=" + availableSeats + ",flight=" + flight + ",schedule=" + schedule
 + "]";
 }
 }
