@@ -2,6 +2,7 @@ package com.capgemini.fms.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -12,6 +13,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,12 +30,12 @@ public class Passenger {
 //@NotNull(message="prn number is mandatory")
 @Id
 @Column(name="prnNumber")
-@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="prnNumber")
+//@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="prnNumber")
 private long prnNumber;
 
-@NotEmpty(message="Name can't be Empty")
-@Size(min=3, max=20,message="Name length can be 3 and 20 characters")
-@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)",message="only alphabets and blanl spaces are allowed")
+//@NotEmpty(message="Name can't be Empty")
+//@Size(min=3, max=20,message="Name length can be 3 and 20 characters")
+//@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)",message="only alphabets and blanl spaces are allowed")
 @Column(name="passengerName")
 private String passengerName;
 
@@ -41,14 +44,15 @@ private String passengerName;
 private int passengerAge;
 
 @NotNull(message="UIN is mandatory")
-@Size(min=5,max=25,message="length can be 5 and 25 numbers")
+//@Size(min=5,max=25,message="length can be 5 and 25 numbers")
 @Column(name="passengerUIN")
 private long passengerUIN;
 
 @Column(name="Luggage")
 private double Luggage;
 
-@ManyToOne
+@ManyToOne(fetch = FetchType.LAZY)
+@JsonIgnore
 @JoinColumn(name ="bookingId", nullable=false)
 private Booking booking;
 
@@ -103,11 +107,10 @@ this.booking = booking;
 @Override
 public String toString() {
 return "Passenger [prnNumber=" + prnNumber + ", passengerName=" + passengerName + ", passengerAge=" + passengerAge
-+ ", passengerUIN=" + passengerUIN + ", Luggage=" + Luggage + ", booking=" + booking + "]";
++ ", passengerUIN=" + passengerUIN + ", Luggage=" + Luggage +", booking=" + booking +"]";
 }
 
-public Passenger(long prnNumber, String passengerName, int passengerAge, long passengerUIN, double luggage,
-Booking booking) {
+public Passenger(long prnNumber, String passengerName, int passengerAge, long passengerUIN, double luggage,Booking booking) {
 super();
 this.prnNumber = prnNumber;
 this.passengerName = passengerName;

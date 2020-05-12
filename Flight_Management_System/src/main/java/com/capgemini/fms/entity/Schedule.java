@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializ
 
 public class Schedule {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="schedule_id")
 	private int schedule_id;
 	
