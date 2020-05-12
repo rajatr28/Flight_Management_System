@@ -21,7 +21,6 @@ public class Flight {
 //@NotNull(message="Flight Number Is Mandatory")
 @Id
 @Column(name="flight_number")
-@GeneratedValue(strategy=GenerationType.AUTO)
 //@GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="flight_number")
 //@SequenceGenerator(sequenceName="flight_number", initialValue=100,allocationSize=1, name="flight_number")
 private Integer flightNumber;

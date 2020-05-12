@@ -20,26 +20,26 @@ import org.hibernate.annotations.DynamicUpdate;
 public class User1 {
 	@Id
 	@Column(name="user_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="user_id")
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="user_id")
 	private Integer userId;
 	
-	@NotEmpty(message="User Type Is Mandatory")
+	//@NotEmpty(message="User Type Is Mandatory")
 	@Column(name="user_type")
 	private String userType;
 	
-	@NotEmpty(message="User Name Is Mandatory")
-	@Size(min=3, max=25, message="Length can be 3 and 25 chars")
-	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[][A-Za-z]+)",message="allow only alphabets and a blank scpace is allowed")
+//	@NotEmpty(message="User Name Is Mandatory")
+//	@Size(min=3, max=25, message="Length can be 3 and 25 chars")
+//	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[][A-Za-z]+)",message="allow only alphabets and a blank scpace is allowed")
 	@Column(name="user_name")
 	private String userName;
 	
-	@NotEmpty(message="Password Is Mandatory")
-	@Size(min=6, max=25, message="Length can be 3 and 25 chars")
-	@Column(name="user_pass")
+//	@NotEmpty(message="Password Is Mandatory")
+//	@Size(min=6, max=25, message="Length can be 3 and 25 chars")
+//	@Column(name="user_pass")
 	private int userPassword;
 	
-	@NotEmpty(message="User Email Is Mandatory")
-	@Size(min=3, max=25, message="Length can be 3 and 25 chars")
+//	@NotEmpty(message="User Email Is Mandatory")
+//	@Size(min=3, max=25, message="Length can be 3 and 25 chars")
 	@Column(name="user_email")
 	private String userEmail;
 	

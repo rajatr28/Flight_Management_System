@@ -1,9 +1,12 @@
 package com.capgemini.fms.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +17,10 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -26,8 +33,7 @@ public class Booking {
 //@NotNull(message="Booking Id Is Mandatory")
 @Id
 @Column(name="booking_id")
-@GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="booking_id")
-
+//@GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="booking_id")
 private long bookingId;
 
 @NotNull(message="Ticket Cost Is Mandatory")
@@ -41,14 +47,15 @@ private int noOfPassengers;
 @ManyToOne
    @JoinColumn(name="user_id", nullable=false)
    private User1 user1;
-@OneToMany(mappedBy="booking")
-   private List<Passenger> passengerList;
+
+@OneToMany(fetch=FetchType.LAZY,mappedBy="booking")
+   private List<Passenger> passengerList = new ArrayList<Passenger>();
 
 @ManyToOne
    @JoinColumn(name="flight_number", nullable=false)
    private Flight flight;
-   @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-   private LocalDateTime bookingDate;
+@JsonDeserialize(using = DateDeserializer .class)
+private Date bookingDate;
 public long getBookingId() {
 return bookingId;
 }
@@ -85,14 +92,15 @@ return flight;
 public void setFlight(Flight flight) {
 this.flight = flight;
 }
-public LocalDateTime getBookingDate() {
+public Date getBookingDate() {
 return bookingDate;
 }
-public void setBookingDate(LocalDateTime bookingDate) {
+public void setBookingDate(Date bookingDate) {
 this.bookingDate = bookingDate;
 }
 public Booking(long bookingId, long ticketCost, int noOfPassengers, User1 user1, List<Passenger> passengerList,
-Flight flight, LocalDateTime bookingDate) {
+Flight flight, Date bookingDate) {
+
 super();
 this.bookingId = bookingId;
 this.ticketCost = ticketCost;
@@ -109,10 +117,9 @@ super();
 @Override
 public String toString() {
 return "Booking [bookingId=" + bookingId + ", ticketCost=" + ticketCost + ", noOfPassengers=" + noOfPassengers
-+ ", user1=" + user1 + ", passengerList=" + passengerList + ", flight=" + flight + ", bookingDate="
++ ", user1=" + user1 + ",passengerList=" + passengerList + ", flight=" + flight + ", bookingDate="
 + bookingDate + "]";
 }
-   
 
 
 }

@@ -40,7 +40,7 @@ public class ScheduledFlightService {
 	}
 	
 	@Transactional
-	public Optional<ScheduledFlight> scheduledflightdetails(int flightNumber){
+	public Optional<ScheduledFlight> scheduledflightdetails(Integer flightNumber){
 		return scheduledflightDao.findById(flightNumber);
 	}
 	
