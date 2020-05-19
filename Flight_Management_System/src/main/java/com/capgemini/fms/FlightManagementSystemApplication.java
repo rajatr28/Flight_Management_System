@@ -48,21 +48,23 @@ public class FlightManagementSystemApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		Airport air = new Airport("D80","Delhi","Delhi");
-		Airport air1 = new Airport("D70","Delhi","Delhi");
+		Airport air1 = new Airport("H90","Hyedrabad","Ragiv international");
 		airportDao.save(air);
 		airportDao.save(air1);
 		Flight fly = new Flight(1,"I80","Indigo",80);
 		flightDao.save(fly);
 		Schedule sc = new Schedule(100, air, air1, null, null);
 		scheduleDao.save(sc);
-		ScheduledFlight sf = new ScheduledFlight(10, fly, sc);
-		scheduledFlightDao.save(sf);
+		Schedule sc1 = new Schedule(101,air,air1, null, null);
+		scheduleDao.save(sc1);
+//		ScheduledFlight sf = new ScheduledFlight(10, fly, sc);
+//		scheduledFlightDao.save(sf);
 		User1 us = new User1(12,"VIP", "rjt", 123456, "rjt@gmail.com");
 		user1Dao.save(us);
-		Booking book = new Booking(8,500, 1, us,null,fly, null);
-		bookingDao.save(book);
-		Passenger pass = new Passenger(101, "rjt", 20, 1000000000, 15000.00,book);
-		passengerDao.save(pass);
+		//Booking book = new Booking(8,500, 1, us,null,fly, null);
+		//bookingDao.save(book);
+//		Passenger pass = new Passenger(101, "rjt", 20, 1000000000, 15000.00);
+//		passengerDao.save(pass);
 		System.out.println("record inserted");
 		}
 

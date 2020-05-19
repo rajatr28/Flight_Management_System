@@ -46,6 +46,7 @@ public class FlightService {
 	@Transactional
 	public Flight updateflight(Flight flight,Integer flightNumber)
 	{
+		flight.setFlightModel(flight.getFlightModel());
 		return flightDao.save(flight);
 	}
 	

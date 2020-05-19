@@ -13,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.fms.entity.Airport;
 import com.capgemini.fms.exception.AirportException;
 import com.capgemini.fms.service.AirportService;
+
 
 @RestController
 public class AirportController {
@@ -61,8 +63,8 @@ public class AirportController {
 	}
 	
 	@CrossOrigin
-	@DeleteMapping("/deleteairport/{code}")
-	public ResponseEntity<String> deleteairport(@Valid @RequestParam String airportCode) throws AirportException
+	@DeleteMapping("/deleteairport/{airportCode}")
+	public ResponseEntity<String> deleteairport(@PathVariable String airportCode) throws AirportException
 	{
 		try
 		{
@@ -75,8 +77,8 @@ public class AirportController {
 	}
 	
 	@CrossOrigin
-	@PutMapping("/editairport/{code}")
-	public ResponseEntity<String> editairport(@Valid @RequestBody Airport airport,@RequestParam String airportCode,BindingResult br ) throws AirportException
+	@PutMapping("/editairport/{airportCode}")
+	public ResponseEntity<String> editairport(@Valid @RequestBody Airport airport,@PathVariable String airportCode,BindingResult br ) throws AirportException
 	{
 		String err = "";
 		if (br.hasErrors()) {

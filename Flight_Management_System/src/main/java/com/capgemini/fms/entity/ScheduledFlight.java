@@ -18,7 +18,7 @@ import org.hibernate.annotations.DynamicUpdate;
 public class ScheduledFlight {
 @Id
 @Column(name="availableSeats")
-private int availableSeats;
+private Integer availableSeats;
 
 @ManyToOne
     @JoinColumn(name="flight_number", nullable=false)
