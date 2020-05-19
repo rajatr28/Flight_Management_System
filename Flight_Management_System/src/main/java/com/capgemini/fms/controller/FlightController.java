@@ -59,22 +59,22 @@ public class FlightController {
 	}
 	
 	@CrossOrigin
-	@DeleteMapping("/deleteflight/{id}")
-	public ResponseEntity deleteflight(@Valid @RequestParam Integer flightNumber) throws FlightException
+	@DeleteMapping("/deleteflight/{flightNumber}")
+	public ResponseEntity deleteflight(@PathVariable Integer flightNumber) throws FlightException
 	{
 		try
 		{
-			flightservice.deleteflight( flightNumber);
+			flightservice.deleteflight(flightNumber);
 			return new ResponseEntity<String>("flight is deleted", HttpStatus.OK);
 		}
 		catch (DataIntegrityViolationException ex) {
-			throw new FlightException("flight number  doesnot exists");
+			throw new FlightException("flight number does not exists");
 		}
 	}
 	
 	@CrossOrigin
-	@PutMapping("/updateflight/{id}")
-	public ResponseEntity updateflight(@Valid @RequestBody Flight flight,@RequestParam Integer flightNumber,BindingResult br ) throws FlightException
+	@PutMapping("/updateflight/{flightNumber}")
+	public ResponseEntity updateflight(@Valid @RequestBody Flight flight,@PathVariable Integer flightNumber,BindingResult br ) throws FlightException
 	{
 		String err = "";
 		if (br.hasErrors()) {

@@ -45,7 +45,7 @@ public class BookingController {
 		}
 		try {
 			bookingservice.addbooking(booking);
-			return new ResponseEntity<String>("Flight added successfully", HttpStatus.OK);
+			return new ResponseEntity<String>("Booking Done successfully", HttpStatus.OK);
 
 		} catch (DataIntegrityViolationException ex) {
 			throw new BookingException("ID already exists");
