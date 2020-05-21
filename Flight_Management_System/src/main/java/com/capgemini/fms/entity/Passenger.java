@@ -18,62 +18,84 @@ import org.hibernate.annotations.DynamicUpdate;
 
 public class Passenger {
 
-	 @Id
+@Id
      @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bk_seq")
- 	@SequenceGenerator(sequenceName = "bk_seq", allocationSize = 1, name = "bk_seq")
+  @SequenceGenerator(sequenceName = "bk_seq", allocationSize = 1, name = "bk_seq")
 
   // @GeneratedValue(strategy = GenerationType.AUTO)
-  
- 	long pnrNumber;
+ 
+  long pnrNumber;
      @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Name should not contain special characters.")
      String passengerName;
      int passengerAge;
      String gender;
    
-     long Id;
-	
-	
-	
-	public Passenger(long pnrNumber, String passengerName, int passengerAge, String gender, long id) {
+     long id;
+
+	public Passenger() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Passenger(long pnrNumber,
+			@Pattern(regexp = "^[\\p{L} .'-]+$", message = "Name should not contain special characters.") String passengerName,
+			int passengerAge, String gender, long id) {
+		super();
 		this.pnrNumber = pnrNumber;
 		this.passengerName = passengerName;
 		this.passengerAge = passengerAge;
 		this.gender = gender;
-		Id = id;
+		this.id = id;
 	}
-	public long getId() {
-		return Id;
-	}
-	public void setId(long id) {
-		Id = id;
-	}
-	public Passenger() {
-		// TODO Auto-generated constructor stub
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+
 	public long getPnrNumber() {
 		return pnrNumber;
 	}
+
 	public void setPnrNumber(long pnrNumber) {
 		this.pnrNumber = pnrNumber;
 	}
+
 	public String getPassengerName() {
 		return passengerName;
 	}
+
 	public void setPassengerName(String passengerName) {
 		this.passengerName = passengerName;
 	}
+
 	public int getPassengerAge() {
 		return passengerAge;
 	}
+
 	public void setPassengerAge(int passengerAge) {
 		this.passengerAge = passengerAge;
 	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Passenger [pnrNumber=" + pnrNumber + ", passengerName=" + passengerName + ", passengerAge="
+				+ passengerAge + ", gender=" + gender + ", id=" + id + "]";
+	}
+
+
+
 
 
 }

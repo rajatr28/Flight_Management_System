@@ -1,6 +1,7 @@
 package com.capgemini.fms.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -89,13 +90,15 @@ public class ScheduledFlightController {
 		}
 	}
 	
-	@GetMapping("/getscheduledflightdetails")
+	@GetMapping("/getscheduledflightdetails/{availableSeats}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public ResponseEntity<List<ScheduledFlight>> scheduledflightdetails(@Valid @RequestParam Integer availableSeats){
-		List<ScheduledFlight> scheduledflightList = scheduledflightservice.showallscheduledflight();
-		
-		return new ResponseEntity<List<ScheduledFlight>>(scheduledflightList,HttpStatus.OK);
-		
+	public Optional<ScheduledFlight>scheduledflightdetails(@PathVariable Integer availableSeats) throws ScheduledFlightException{
+		try {
+			return scheduledflightservice.scheduledflightdetails(availableSeats);
+		}
+		catch(Exception ex) {
+			throw new ScheduledFlightException(ex.getMessage());
+		}
 	}
 
 }

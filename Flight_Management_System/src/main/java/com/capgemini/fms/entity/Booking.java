@@ -1,7 +1,9 @@
 package com.capgemini.fms.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,125 +12,64 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
+
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
+
+
 
 @Entity
 @Table(name="booking")
 @DynamicUpdate(true)
 @DynamicInsert(true)
 
-public class Booking implements Serializable{
+public class Booking{
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bk_seq")
-//	@SequenceGenerator(sequenceName = "bk_seq", allocationSize = 1, name = "bk_seq")
-////	@GeneratedValue
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bk_seq")
+	// @SequenceGenerator(sequenceName = "bk_seq", allocationSize = 1, name = "bk_seq")
+	//// @GeneratedValue
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long  bookingId;
-	long userId;
 	
-	//@JsonDeserialize(using = DateDeserializer .class)
-	private Date Bookingdate;
+	@OneToOne(fetch=FetchType.EAGER)
+	User1 user;
 	
-   @OneToMany(mappedBy = "Id",fetch=FetchType.LAZY)
-   @JsonIgnore
-    @Valid
-	private List<Passenger> passenger;
-
+	//LocalDateTime Bookingdate;
+	@JsonDeserialize(using = DateDeserializer .class)
+	 private Date Bookingdate;
+	
+	   @OneToMany(fetch=FetchType.EAGER)
+	 	private List<Passenger> passengerList;
+	
 	double ticketCost;
-
-	Integer flightNumber;
-
-	int noOfPassengers;
-
 	
-	 @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Name should not contain special characters.")
-     String passengerName;
-     int passengerAge;
-     String gender;
-     String seatType;
-    int extraBaggage;
-
-	public Booking(long bookingId, long userId, Date bookingdate, @Valid List<Passenger> passenger, double ticketCost,
-			Integer flightNumber, int noOfPassengers,
-			@Pattern(regexp = "^[\\p{L} .'-]+$", message = "Name should not contain special characters.") String passengerName,
-			int passengerAge, String gender, String seatType, int extraBaggage) {
-		this.bookingId = bookingId;
-		this.userId = userId;
-		Bookingdate = bookingdate;
-		this.passenger = passenger;
-		this.ticketCost = ticketCost;
-		this.flightNumber = flightNumber;
-		this.noOfPassengers = noOfPassengers;
-		this.passengerName = passengerName;
-		this.passengerAge = passengerAge;
-		this.gender = gender;
-		this.seatType = seatType;
-		this.extraBaggage = extraBaggage;
-	}
+	@OneToOne(fetch=FetchType.EAGER)
+	Flight flight;
+	
+	int noOfPassengers;
 
 	public Booking() {
 		super();
-	}
-	public String getPassengerName() {
-		return passengerName;
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setPassengerName(String passengerName) {
-		this.passengerName = passengerName;
-	}
-
-	public int getPassengerAge() {
-		return passengerAge;
-	}
-
-	public void setPassengerAge(int passengerAge) {
-		this.passengerAge = passengerAge;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getSeatType() {
-		return seatType;
-	}
-
-	public void setSeatType(String seatType) {
-		this.seatType = seatType;
-	}
-
-	public int getExtraBaggage() {
-		return extraBaggage;
-	}
-
-	public void setExtraBabbage(int extraBaggage) {
-		this.extraBaggage = extraBaggage;
-	}
-
-	public Integer getFlightNumber() {
-		return flightNumber;
-	}
-
-	public void setFlightNumber(Integer flightNumber) {
-		this.flightNumber = flightNumber;
-	}
-
-	public Booking(long bookingId) {
+	public Booking(long bookingId, User1 user, Date bookingdate, List<Passenger> passengerList, double ticketCost,
+			Flight flight, int noOfPassengers) {
+		super();
 		this.bookingId = bookingId;
+		this.user = user;
+		Bookingdate = bookingdate;
+		this.passengerList = passengerList;
+		this.ticketCost = ticketCost;
+		this.flight = flight;
+		this.noOfPassengers = noOfPassengers;
 	}
 
 	public long getBookingId() {
@@ -139,6 +80,13 @@ public class Booking implements Serializable{
 		this.bookingId = bookingId;
 	}
 
+	public User1 getUser() {
+		return user;
+	}
+
+	public void setUser(User1 user) {
+		this.user = user;
+	}
 
 	public Date getBookingdate() {
 		return Bookingdate;
@@ -148,12 +96,12 @@ public class Booking implements Serializable{
 		Bookingdate = bookingdate;
 	}
 
-	public List<Passenger> getPassenger() {
-		return passenger;
+	public List<Passenger> getPassengerList() {
+		return passengerList;
 	}
 
-	public void setPassenger(List<Passenger> passenger) {
-		this.passenger = passenger;
+	public void setPassengerList(List<Passenger> passengerList) {
+		this.passengerList = passengerList;
 	}
 
 	public double getTicketCost() {
@@ -164,18 +112,13 @@ public class Booking implements Serializable{
 		this.ticketCost = ticketCost;
 	}
 
-	
-
-
-
-	public long getUserId() {
-		return userId;
+	public Flight getFlight() {
+		return flight;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setFlight(Flight flight) {
+		this.flight = flight;
 	}
-
 
 	public int getNoOfPassengers() {
 		return noOfPassengers;
@@ -185,15 +128,12 @@ public class Booking implements Serializable{
 		this.noOfPassengers = noOfPassengers;
 	}
 
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", user=" + user + ", Bookingdate=" + Bookingdate
+				+ ", passengerList=" + passengerList + ", ticketCost=" + ticketCost + ", flight=" + flight
+				+ ", noOfPassengers=" + noOfPassengers + "]";
+	}
+
 	
-	/**
-	 * 
-	 * @param bookingId
-	 * @param userId
-	 * @param bookingdate
-	 * @param passenger
-	 * @param ticketCost
-	 * @param flight
-	 * @param noOfPassengers
-	 */
 }
