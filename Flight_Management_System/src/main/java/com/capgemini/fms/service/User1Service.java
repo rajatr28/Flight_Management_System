@@ -23,9 +23,9 @@ public class User1Service {
 		return user1Dao.save(user1) !=null;
 	}
 	
-	public Optional<User1> shows(int user_id )
+	public Optional<User1> User1details(Integer userId )
 	{
-		return user1Dao.findById(user_id);
+		return user1Dao.findById(userId);
 	}
 	
 	public List<User1> show()
@@ -33,12 +33,12 @@ public class User1Service {
 		return user1Dao.findAll();
 	}
 	
-	public void deleteUser1(int user_id) {
+	public void deleteUser1(Integer userId) {
 
-		user1Dao.deleteById(user_id);
+		user1Dao.deleteById(userId);
 	}
 	
-	public User1 updateUser1(User1 user1,int user_id) {
+	public User1 updateUser1(User1 user1,int userId) {
 		
 		return user1Dao.save(user1);
 	}  

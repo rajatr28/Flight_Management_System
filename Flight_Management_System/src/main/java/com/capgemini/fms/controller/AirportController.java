@@ -1,11 +1,11 @@
 package com.capgemini.fms.controller;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,11 +19,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.Optional;
 import com.capgemini.fms.entity.Airport;
 import com.capgemini.fms.exception.AirportException;
 import com.capgemini.fms.service.AirportService;
-
 
 @RestController
 public class AirportController {
@@ -43,22 +42,17 @@ public class AirportController {
 		}
 		try {
 			airportservice.addairport(airport);
-			return new ResponseEntity<String>("Airport added successfully", HttpStatus.OK);
+				return new ResponseEntity<String>("Airport added successfully", HttpStatus.OK);
 
 		} catch (DataIntegrityViolationException ex) {
-			throw new AirportException("Code already exists");
+			throw new AirportException("code already exists");
 		}
 	}
-	@CrossOrigin
-	@GetMapping("/getairportdetails")
-	public ResponseEntity<Airport> airportdetails(@Valid @RequestParam String airportCode){
-		return new ResponseEntity<Airport>(HttpStatus.OK);
-		}
-
+	
 	@CrossOrigin
 	@GetMapping("/viewallairport")
 	public ResponseEntity<List<Airport>> getAirportlist() {
-		List<Airport> airportList = airportservice.retrieve();
+		List<Airport> airportList = airportservice.viewallairport();
 		return new ResponseEntity<List<Airport>>(airportList, HttpStatus.OK);
 	}
 	
@@ -75,10 +69,22 @@ public class AirportController {
 			throw new AirportException("airport code  doesnot exists");
 		}
 	}
+	@CrossOrigin
+	@GetMapping("/airportdetails/{airportCode}")
+		public Optional<Airport> airportdetails(@PathVariable String airportCode) throws AirportException{
+			try {
+				return airportservice.airportdetails(airportCode);
+			}
+			catch (Exception ex)
+			{
+				throw new AirportException(ex.getMessage());
+			}
+	}
+	
 	
 	@CrossOrigin
-	@PutMapping("/editairport/{airportCode}")
-	public ResponseEntity<String> editairport(@Valid @RequestBody Airport airport,@PathVariable String airportCode,BindingResult br ) throws AirportException
+	@PutMapping("/updateairport/{airportCode}")
+	public ResponseEntity<String> updateairport(@Valid @RequestBody Airport airport,@PathVariable String airportCode,BindingResult br ) throws AirportException
 	{
 		String err = "";
 		if (br.hasErrors()) {
@@ -88,7 +94,7 @@ public class AirportController {
 			throw new AirportException(err);
 		}
 		try {
-			airportservice.editairport(airport,airportCode);
+			airportservice.updateairport(airport,airportCode);
 			return new ResponseEntity<String>("Airport updated successfully", HttpStatus.OK);
 
 		} catch (DataIntegrityViolationException ex) {
