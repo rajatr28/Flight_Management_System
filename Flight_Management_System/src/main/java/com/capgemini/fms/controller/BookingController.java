@@ -103,9 +103,3 @@ public class BookingController {
 		}
 		
 	}
-		
-	
-	
-	
-
-

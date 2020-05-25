@@ -35,7 +35,7 @@ public class Booking{
 	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bk_seq")
 	// @SequenceGenerator(sequenceName = "bk_seq", allocationSize = 1, name = "bk_seq")
 	//// @GeneratedValue
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	long  bookingId;
 	
 	@OneToOne(fetch=FetchType.EAGER)
